@@ -1,0 +1,21 @@
+---
+- name: Run the Colortokens Agent installation script
+  hosts: all
+  become: true
+  tasks:
+    - name: Set environment variables and run installation script
+      shell: |
+        export CT_AUTO_UPGRADE="false"
+        export CT_DEPLOYMENT_KEY="aht7qttfjwhkk"
+        export CT_DOMAIN="https://ng.colortokens.com"
+        export CT_AGENT_VERSION="24.9.3"
+        export CT_AGENT_TYPE="server"
+        bash -c "$(curl -L --tlsv1.2  'https://artifacts.ng.colortokens.com/ct-agent/24.9.3/installation-script/linux/installation-script.sh?se=2024-11-11T20%3A45%3A00Z&sig=2crRdzOfU70eDoftXYke1XMu5YpWK4AUjRZA1hfQi1Y%3D&sp=r&sr=b&st=2024-11-10T20%3A45%3A00Z&sv=2021-12-02')"
+      args:
+        creates: /opt/colortokens/ct-agent/bin/ct-agent  # Optional: Check if the agent is installed
+      environment:
+        CT_AUTO_UPGRADE: "false"
+        CT_DEPLOYMENT_KEY: "aht7qttfjwhkk"
+        CT_DOMAIN: "https://ng.colortokens.com"
+        CT_AGENT_VERSION: "24.9.3"
+        CT_AGENT_TYPE: "server"
