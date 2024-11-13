@@ -1,0 +1,13 @@
+---
+- name: Install ColorTokens Agent
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set environment variables and run the installation script
+      ansible.builtin.shell: |
+        CT_AUTO_UPGRADE="false"
+        CT_DEPLOYMENT_KEY="aht7qttfjwhkk"
+        CT_DOMAIN="https://ng.colortokens.com"
+        CT_AGENT_VERSION="24.9.3"
+        CT_AGENT_TYPE="server"
+        bash -c "$(curl -L --tlsv1.2 'https://artifacts.ng.colortokens.com/ct-agent/24.9.3/installation-script/linux/installation-script.sh?se=2024-11-13T18%3A49%3A36Z&sig=RoWnceT2Jkpkj73W7%2FwQFcqeJAGMbIF%2BbT%2B8nMQD0fM%3D&sp=r&sr=b&st=2024-11-12T18%3A49%3A36Z&sv=2021-12-02')"
